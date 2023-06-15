@@ -1,30 +1,29 @@
 <template>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-    <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
-    </div>
-  </router-link>
+  <div class="column">
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="recipe-preview"
+    >
+      <b-card
+      :title="recipe.title"
+      :img-src="recipe.image"
+      img-alt="Image"
+      img-top
+      tag="article"
+      class="mb-2"
+      ></b-card>
+    </router-link>
+  </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
-  },
+  name:"RecipePriview",
+  // mounted() {
+  //   this.axios.get(this.image).then((i) => {
+  //     this.image_load = true;
+  //   });
+  // },
   data() {
     return {
       image_load: false
@@ -34,7 +33,7 @@ export default {
     recipe: {
       type: Object,
       required: true
-    }
+    },
 
     // id: {
     //   type: Number,
@@ -73,7 +72,7 @@ export default {
 }
 .recipe-preview > .recipe-body {
   width: 100%;
-  height: 200px;
+  /* height: 200px; */
   position: relative;
 }
 
@@ -95,7 +94,6 @@ export default {
   height: 50%;
   overflow: hidden;
 }
-
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
   width: 100%;
@@ -137,5 +135,17 @@ export default {
   width: 90px;
   display: table-cell;
   text-align: center;
+}
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.column:last-child {
+  margin-right: 0;
 }
 </style>
