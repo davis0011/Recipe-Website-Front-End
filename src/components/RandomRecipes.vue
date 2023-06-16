@@ -25,23 +25,32 @@ export default {
     },
     data(){
         return{
-           recipes: [
-                        {
-                            id: 641726,
-                            title: "Dulce De Leche Brownies",
-                            readyInMinutes: 45,
-                            image: "https://spoonacular.com/recipeImages/641726-556x370.jpg",
-                            aggregateLikes: 29
-                        },
-                        {
-                            id: 651389,
-                            title: "Medenjaci - Croatian Honey Spice Cookies",
-                            readyInMinutes: 45,
-                            image: "https://spoonacular.com/recipeImages/651389-556x370.jpg",
-                            aggregateLikes: 6
-                        }
-                        ],
+           recipes: [],
         }
+    },
+    mounted(){
+        // this.updateRecipes();
+    },
+    methods:{
+        // async updateRecipes(){
+        //     try{
+        //         const response = await this.axios.get("http://localhost:3000/recipes/rand",
+        //         );
+        //         const recipes = response.data.map((r)=>{
+        //             return{
+        //                 id:r.id,
+        //                 title: r.title,
+        //                 readyInMinutes:r.readyInMinutes,
+        //                 image:r.image,
+        //                 aggregateLikes:r.aggregateLikes,
+        //             };
+        //         });
+        //         this.recipes = [];
+        //         this.recipes.push(...recipes);
+        //     }catch(error){
+        //         console.log(error);
+        //     }
+        // }
     }
 };
 </script>
