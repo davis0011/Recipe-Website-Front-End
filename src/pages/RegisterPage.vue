@@ -187,7 +187,11 @@ export default {
 
           {
             username: this.form.username,
-            password: this.form.password
+            firstName: this.form.firstName,
+            lastName: this.form.lastName,
+            country: this.form.country,
+            password: this.form.password,
+            email: this.form.email,
           }
         );
         this.$router.push("/login");
