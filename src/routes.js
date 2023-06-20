@@ -1,7 +1,6 @@
 import Main from "./pages/MainPage";
 import NotFound from "./pages/NotFoundPage";
 
-const server = "http://localhost:3000";
 
 const routes = [
   {
@@ -28,11 +27,6 @@ const routes = [
     path: "/recipe/:recipeId",
     name: "recipe",
     component: () => import("./pages/RecipeViewPage"),
-  },
-  {
-    path: "/shlomi",
-    name: "3rand",
-    component: () => import(server+"/recipes/rand"),
   },
   {
     path: "*",
