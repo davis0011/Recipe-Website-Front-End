@@ -25,12 +25,12 @@
           </div>
           <div class="wrapped">
             Instructions:
-            {{recipe.instructions}}
-            <!-- <ol>
-              <li v-for="s in recipe.instructions" :key="s.number">
+            <!-- {{recipe.instructions}} -->
+            <ol>
+              <li v-for="s in recipe._instructions" :key="s.number">
                 {{ s.step }}
               </li>
-            </ol> -->
+            </ol>
 
           </div>
         </div>
@@ -73,8 +73,9 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
-
+      console.log(response.data)
       let {
+        analyzedInstructions,
         instructions,
         extendedIngredients,
         popularity,
@@ -84,17 +85,17 @@ export default {
         servings
       } = response.data;
 
-      // let _instructions = analyzedInstructions
-      //   .map((fstep) => {
-      //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-      //     return fstep.steps;
-      //   })
-      //   .reduce((a, b) => [...a, ...b], []);
+      let _instructions = analyzedInstructions
+        .map((fstep) => {
+          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+          return fstep.steps;
+        })
+        .reduce((a, b) => [...a, ...b], []);
 
       let _recipe = {
         instructions,
-        // _instructions,
-        // analyzedInstructions,
+        _instructions,
+        analyzedInstructions,
         extendedIngredients,
         popularity,
         readyInMinutes,

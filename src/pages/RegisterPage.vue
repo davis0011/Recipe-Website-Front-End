@@ -114,6 +114,28 @@
         ></b-form-input>
       </b-form-group>
 
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="email:"
+        label-for="email"
+      >
+        <b-form-input
+          id="email"
+          type="text"
+          v-model="$v.form.confirmEmail.$model"
+          :state="validateState('confirmEmail')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.confirmEmail.required">
+          Email is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback
+          v-else-if="!$v.form.confirmEmail.email"
+        >
+          please enter a valid email
+        </b-form-invalid-feedback>
+      </b-form-group>
+
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
         type="submit"
@@ -190,7 +212,12 @@ export default {
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+      confirmEmail:{
+        required,
+        goodMail: email
       }
+
     }
   },
   mounted() {
