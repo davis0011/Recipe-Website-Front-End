@@ -90,6 +90,30 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <b-form-group
+        id="input-group-firstName"
+        label-cols-sm="3"
+        label="first name:"
+        label-for="firstName"
+      >
+        <b-form-input
+          id="firstName"
+          type="text"
+        ></b-form-input>
+      </b-form-group>
+
+            <b-form-group
+        id="input-group-lastName"
+        label-cols-sm="3"
+        label="last name:"
+        label-for="lastName"
+      >
+        <b-form-input
+          id="lastName"
+          type="text"
+        ></b-form-input>
+      </b-form-group>
+
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
         type="submit"
@@ -183,7 +207,7 @@ export default {
       try {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
+          "http://localhost:3000/Register",
 
           {
             username: this.form.username,
