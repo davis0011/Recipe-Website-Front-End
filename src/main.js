@@ -17,6 +17,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import {
   FormGroupPlugin,
+  FormCheckboxPlugin,
+  FormTextareaPlugin,
+  ModalPlugin,
   FormPlugin,
   FormInputPlugin,
   ButtonPlugin,
@@ -29,6 +32,9 @@ import {
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
+  FormCheckboxPlugin,
+  FormTextareaPlugin,
+  ModalPlugin,
   FormPlugin,
   FormInputPlugin,
   ButtonPlugin,

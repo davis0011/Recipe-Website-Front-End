@@ -7,8 +7,12 @@
           <b-navbar-nav>
             <b-nav-item :to="{ name: 'main' }">Vue Recipes</b-nav-item>
             <b-nav-item :to="{ name: 'search' }" >Search</b-nav-item>
-            <!-- <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
-            <router-link :to="{ name: 'search' }">Search</router-link>    -->
+            <span v-if="$root.store.username">
+              <b-nav-item-dropdown text="Lang" right>
+                <b-dropdown-item :to="{ name: 'favorites' }" >Favorites</b-dropdown-item>
+                <b-dropdown-item @click="showModal">Create Recipe</b-dropdown-item>
+              </b-nav-item-dropdown>
+            </span>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto" right>
             <span v-if="!$root.store.username" >
@@ -24,14 +28,25 @@
           </b-navbar-nav>
         </b-collapse>
     </b-navbar>
+
     <router-view />
+     <CreateRecipe v-if="isModalVisible" @close="closeModal" />
   </div>
   
 </template>
 
 <script>
+import CreateRecipe from './components/CreateRecipe.vue';
 export default {
   name: "App",
+  components: {
+      CreateRecipe,
+    },
+    data() {
+      return {
+        isModalVisible: false,
+      };
+    },
   methods: {
     Logout() {
       this.$root.store.logout();
@@ -40,7 +55,13 @@ export default {
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
-    }
+    },
+      showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      }
   }
 };
 </script>
