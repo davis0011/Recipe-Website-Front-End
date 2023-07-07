@@ -11,6 +11,7 @@
             <b-form-group label="title" label-for="name-input" invalid-feedback="title is required">
             <b-form-input
                 id="title-input"
+                :state=isInputEmpty(title)
                 v-model="title"
                 required
             ></b-form-input>
@@ -20,6 +21,8 @@
                 type="number"
                 id="readyInMinutes"
                 v-model="readyInMinutes"
+                :state=isInputEmptyNum(readyInMinutes)
+                min="1"
                 required
             ></b-form-input>
             </b-form-group>
@@ -30,6 +33,8 @@
             <b-form-input
                 type="number"
                 id="servings"
+                :state=isInputEmptyNum(servings)
+                min="1"
                 v-model="servings"
                 required
             ></b-form-input>
@@ -57,12 +62,12 @@ export default {
 
     data() {
         return {
-            title:"",
-            readyInMinutes:0,
+            title:null,
+            readyInMinutes:null,
             vegan:false,
             vegetarian:false,
             glutenFree:false,
-            servings:0,
+            servings:null,
             ingredients:[],
             instructions:[]
 
@@ -94,17 +99,29 @@ export default {
   },
 
     methods: {
+      isInputEmpty(inputValue) {
+      if(inputValue === null){
+        return null;
+      };
+      return inputValue !== "";
+    },
+    isInputEmptyNum(inputValue) {
+      if(inputValue === null){
+        return null;
+      };
+      return inputValue !== "" && inputValue > 0;
+    },
         checkFormValidity() {
         const valid = this.$refs.form.checkValidity()
         this.nameState = valid
         return valid
       },
       resetModal() {
-        this.title=""
-        this.readyInMinutes=0
+        this.title=null
+        this.readyInMinutes=null
         this.vegan = false
         this.vegetarian = false
-        this.servings = 0
+        this.servings = null
         this.glutenFree = false
         this.ingredients =[]
         this.instructions = []
