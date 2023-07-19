@@ -8,6 +8,11 @@
             readyInMinutes:r.readyInMinutes,
             image:r.image,
             aggregateLikes:r.aggregateLikes,
+            viewed:r.viewed,
+            favorite:r.favorite,
+            glutenFree:r.glutenFree,
+            vegan:r.vegan,
+            vegetarian:r.vegetarian,
             key:r.id}"
         :key="r.id"
         
@@ -42,7 +47,12 @@ export default {
                         title: r.title,
                         readyInMinutes:r.readyInMinutes,
                         image:r.image,
-                        aggregateLikes:r.aggregateLikes,
+                        aggregateLikes:r.popularity,
+                        viewed:r.viewed,
+                        favorite:r.favorite,
+                        glutenFree:r.glutenFree,
+                        vegan:r.vegan,
+                        vegetarian:r.vegetarian
                     };
                 });
                 this.recipes = [];

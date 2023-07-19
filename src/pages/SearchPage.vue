@@ -23,13 +23,40 @@
         class="ml-5 w-75"
         @click="handleSubmit"
         >Search</b-button>
+    <div class="sort-buttons" v-if="this.res">
+      <span @click="sortBy('popularity')">Sort by Popularity</span>
+      <span @click="sortBy('time')">Sort by Time</span>
+    </div>
+    <div class="recipe-grid" v-if="this.res">
+    <RecipePreview
+      v-for="r in recipes"
+      :recipe="{
+        id: r.id,
+        title: r.title,
+        readyInMinutes: r.readyInMinutes,
+        image: r.image,
+        aggregateLikes: r.aggregateLikes,
+        viewed: r.viewed,
+        favorite: r.favorite,
+        glutenFree: r.glutenFree,
+        vegan: r.vegan,
+        vegetarian: r.vegetarian,
+        key: r.id,
+      }"
+      :key="r.id"
+    ></RecipePreview>
+  </div>
   </div>
 </template>
 
 <script>
+import RecipePreview from '../components/RecipePreview.vue';
+
 export default {
   name: 'SearchPage',
-
+  components:{
+      RecipePreview,
+  },
   data() {
     return { 
         text: '', // need Query, Limit, Intolerances, Diet, Cuisine
@@ -51,7 +78,9 @@ export default {
         intolerance_options: [
           { value: null, text: 'None' },
           "Dairy", "Egg", "Gluten", "Grain", "Peanut", "Seafood", "Sesame", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"
-        ]
+        ],
+        res:false,
+        recipes:[]
     }
   },
 
@@ -60,6 +89,15 @@ export default {
   },
 
   methods: {
+    sortBy(type) {
+      if (type === 'popularity') {
+        // Sort the recipes by popularity
+        this.recipes.sort((a, b) => b.aggregateLikes - a.aggregateLikes);
+      } else if (type === 'time') {
+        // Sort the recipes by time
+        this.recipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes);
+      }
+    },
     checkFormValidity() {
         const valid = this.text.trim() != ""
         this.nameState = valid
@@ -70,9 +108,9 @@ export default {
         if (!this.checkFormValidity()) {
           return
         }
-        const c = this.cuisineSelected ? [this.cuisineSelected] : []
-        const d = this.dietSelected ? [this.dietSelected] : []
-        const i = this.intoleranceSelected ? [this.intoleranceSelected] : []
+        const c = this.cuisineSelected ? this.cuisineSelected : ""
+        const d = this.dietSelected ? this.dietSelected : ""
+        const i = this.intoleranceSelected ? this.intoleranceSelected : ""
         console.log(            {
               searchText: this.text,
               limit: this.value,
@@ -91,8 +129,26 @@ export default {
               intolerances: i
             }
           })
-        console.log(response);
-        try {}
+          console.log(response);
+          const recipes = response.data.map((r)=>{
+                    return{
+                        id:r.id,
+                        title: r.title,
+                        readyInMinutes:r.readyInMinutes,
+                        image:r.image,
+                        aggregateLikes:r.popularity,
+                        viewed:r.viewed,
+                        favorite:r.favorite,
+                        glutenFree:r.glutenFree,
+                        vegan:r.vegan,
+                        vegetarian:r.vegetarian
+                    };
+                });
+                this.recipes = [];
+                this.recipes.push(...recipes);
+        
+        this.res = true
+        try{}
        catch (err) {
         console.log(err.response);
         // this.form.submitError = err.response.data.message;
@@ -104,5 +160,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px; /* Add any gap between the cards */
+  margin-top: 20px; /* Adjust as needed */
+}
+.sort-buttons {
+  
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
 
+.sort-buttons span {
+  margin: 0 10px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}
 </style>

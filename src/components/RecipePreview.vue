@@ -1,32 +1,47 @@
 <template>
   <div class="column">
-    <router-link
+
+      <b-card
+      tag="article"
+      class="mb-2"
+      >
+      <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="recipe-preview"
     >
-      <b-card
-      :title="recipe.title"
-      :img-src="recipe.image"
-      img-alt="Image"
-      img-top
-      tag="article"
-      class="mb-2"
-      ></b-card>
-    </router-link>
+      <b-card-img-lazy :src="recipe.image" alt="Image" class="custom-card-img" top></b-card-img-lazy>
+      <b-card-title :class="{ 'purple-text': recipe.viewed }">{{recipe.title}}</b-card-title>
+      </router-link>
+      <div class="recipe-info">
+          <div class="recipe-favorite" v-if="$root.store.username">
+            <span class="likes">Popularity: {{ recipe.aggregateLikes }}</span>
+            <img v-if="this.heart" class="heart-icon" src="https://icon-library.com/images/small-heart-icon/small-heart-icon-0.jpg">
+            <img v-else class="heart-icon-hollow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/497px-Heart_icon_red_hollow.svg.png" @click="makeFavorite()">
+
+          </div>
+          <div class="recipe-icons">
+            <i class="fas fa-clock"></i> {{ recipe.readyInMinutes }} minutes
+            <i class="gluten">{{ recipe.glutenFree ? 'Gluten-Free' : 'Has Gluten' }}</i>
+          </div>
+            <span align="center" class="veg">
+            <i v-if="recipe.vegan">vegan</i>
+            <i v-else-if="recipe.vegetarian">vegetarian</i>
+            </span>
+        </div>
+      </b-card>
   </div>
 </template>
 
 <script>
 export default {
   name:"RecipePriview",
-  // mounted() {
-  //   this.axios.get(this.image).then((i) => {
-  //     this.image_load = true;
-  //   });
-  // },
+  mounted() {
+    this.heart = this.recipe.favorite
+  },
   data() {
     return {
-      image_load: false
+      image_load: false,
+      heart : false
     };
   },
   props: {
@@ -34,31 +49,26 @@ export default {
       type: Object,
       required: true
     },
+  },
+      methods: {
+    async makeFavorite() {
+      console.log(this.recipe.id)
+      try {
+        const response = await this.axios.post("http://localhost:3000/users/favorites",
 
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
-  }
+          {
+            recipeId:this.recipe.id
+          }
+        );
+        this.recipe.favorite = true
+        this.heart = true
+        console.log(response);
+      } catch (err) {
+        console.log(err.response);
+      }
+    },
+  },
+
 };
 </script>
 
@@ -75,7 +85,19 @@ export default {
   /* height: 200px; */
   position: relative;
 }
-
+.veg{
+  float: center;
+}
+.heart-icon{
+  width: 30%;
+  /* height: 5vh; */
+  float: right;
+}
+.heart-icon-hollow{
+  width: 10%;
+  /* height: 5vh; */
+  float: right;
+}
 .recipe-preview .recipe-body .recipe-image {
   margin-left: auto;
   margin-right: auto;
@@ -88,7 +110,17 @@ export default {
   -moz-background-size: cover;
   background-size: cover;
 }
+.purple-text {
+  color: #551A8B;
+  font-weight: bold;
+  text-decoration-color: #551A8B; /* Set the underline color to match the text color */
+  text-decoration-thickness: 2px; /* Adjust the thickness of the underline */
+  text-decoration-style: solid; /* Set the underline style to solid */
+}
 
+.purple-text:hover {
+  text-decoration-color: inherit; /* Inherit the underline color from the parent element on hover */
+}
 .recipe-preview .recipe-footer {
   width: 100%;
   height: 50%;
@@ -123,7 +155,13 @@ export default {
   table-layout: fixed;
   margin-bottom: 0px;
 }
-
+.gluten{
+  float: right;
+}
+.custom-card-img {
+  object-fit: cover;
+  height: 200px; /* Set the desired height for the image */
+}
 .recipe-preview .recipe-footer ul.recipe-overview li {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;

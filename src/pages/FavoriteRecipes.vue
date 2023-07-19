@@ -1,15 +1,22 @@
 <template>
-    <div>
-        <RecipePreview
-        v-for="r in recipes"
+    <div class="row" id="recipes">
+    <div class="recipe-container" v-for="r in recipes" :key="r.id">
+      <RecipePreview
         :recipe="{
-            id:r.id,
-            title:r.title,
-            readyInMinutes:r.readyInMinutes,
-            image:r.image,
-            aggregateLikes:r.aggregateLikes,
-            key:r.id}"
-        :key="r.id"></RecipePreview>
+          id: r.id,
+          title: r.title,
+          readyInMinutes: r.readyInMinutes,
+          image: r.image,
+          aggregateLikes: r.aggregateLikes,
+            viewed:r.viewed,
+            favorite:r.favorite,
+            glutenFree:r.glutenFree,
+            vegan:r.vegan,
+            vegetarian:r.vegetarian,
+          key: r.id
+        }"
+      ></RecipePreview>
+    </div>
     </div>
 </template>
 
@@ -27,13 +34,13 @@ export default {
     },
 
     mounted() {
-        updateRecipes()
+        this.updateRecipes()
     },
 
     methods: {
         async updateRecipes(){
             try{
-                const response = await this.axios.get("http://localhost:3000/users/favorite",
+                const response = await this.axios.get("http://localhost:3000/users/favorites",
                 );
                 const recipes = response.data.map((r)=>{
                     return{
@@ -41,7 +48,12 @@ export default {
                         title: r.title,
                         readyInMinutes:r.readyInMinutes,
                         image:r.image,
-                        aggregateLikes:r.aggregateLikes,
+                        aggregateLikes:r.popularity,
+                        viewed:r.viewed,
+                        favorite:r.favorite,
+                        glutenFree:r.glutenFree,
+                        vegan:r.vegan,
+                        vegetarian:r.vegetarian
                     };
                 });
                 this.recipes = [];
@@ -55,5 +67,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+#recipes {
+    height: 50%;
+}
+.recipe-container {
+  width: 30%; /* Set the desired width for each recipe preview container */
+  height: auto; /* Adjust the height as needed */
+  /* Add any additional styling for the container */
+}
 </style>

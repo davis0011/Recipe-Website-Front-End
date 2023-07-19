@@ -9,6 +9,8 @@
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
+              <img v-if="recipe.favorite" class="heart-icon" src="https://icon-library.com/images/small-heart-icon/small-heart-icon-0.jpg">
+            <img v-else class="heart-icon-hollow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/497px-Heart_icon_red_hollow.svg.png">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.popularity }} likes</div>
             </div>
@@ -22,6 +24,11 @@
               </li>
             </ul>
             <div>servings: {{ recipe.servings }}</div>
+            <i class="gluten">{{ recipe.glutenFree ? 'Gluten-Free' : 'Has Gluten' }}</i>
+            <span align="center" class="veg">
+            <i v-if="recipe.vegan">vegan</i>
+            <i v-else-if="recipe.vegetarian">vegetarian</i>
+            </span>
           </div>
           <div class="wrapped">
             Instructions:
@@ -82,7 +89,8 @@ export default {
         readyInMinutes,
         image,
         title,
-        servings
+        servings,
+        favorite
       } = response.data;
 
       let _instructions = analyzedInstructions
@@ -101,7 +109,8 @@ export default {
         readyInMinutes,
         image,
         title,
-        servings
+        servings,
+        favorite
       };
 
       this.recipe = _recipe;
@@ -124,6 +133,16 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+.heart-icon{
+  width: 30%;
+  /* height: 5vh; */
+  /* float: right; */
+}
+.heart-icon-hollow{
+  width: 10%;
+  /* height: 5vh; */
+  /* float: right; */
 }
 /* .recipe-header{
 
