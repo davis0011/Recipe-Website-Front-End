@@ -13,6 +13,7 @@
             glutenFree:r.glutenFree,
             vegan:r.vegan,
             vegetarian:r.vegetarian,
+            own:false,
             key:r.id}"
         :key="r.id"
         

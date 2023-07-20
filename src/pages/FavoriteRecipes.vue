@@ -13,6 +13,7 @@
             glutenFree:r.glutenFree,
             vegan:r.vegan,
             vegetarian:r.vegetarian,
+            own:false,
           key: r.id
         }"
       ></RecipePreview>
@@ -71,8 +72,7 @@ export default {
     height: 50%;
 }
 .recipe-container {
-  width: 30%; /* Set the desired width for each recipe preview container */
-  height: auto; /* Adjust the height as needed */
-  /* Add any additional styling for the container */
+  width: 30%;
+  height: auto; 
 }
 </style>

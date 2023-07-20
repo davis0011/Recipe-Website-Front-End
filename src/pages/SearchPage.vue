@@ -87,6 +87,13 @@ export default {
   mounted() {
     
   },
+  created(){
+    console.log(this.$root.store.recipes)
+    if(this.$root.store.lastsearch !== []){
+      this.recipes = this.$root.store.lastsearch
+      this.res = true;
+    }
+  },
 
   methods: {
     sortBy(type) {
@@ -148,6 +155,10 @@ export default {
                 this.recipes.push(...recipes);
         
         this.res = true
+        console.log(!this.$root.store.username)
+        if(this.$root.store.username){
+          this.$root.store.lastsearch = this.recipes;
+        }
         try{}
        catch (err) {
         console.log(err.response);

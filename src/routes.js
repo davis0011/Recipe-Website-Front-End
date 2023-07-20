@@ -34,6 +34,16 @@ const routes = [
     component: () => import("./pages/FavoriteRecipes"),
   },
   {
+    path: "/own",
+    name: "own",
+    component: () => import("./pages/OwnRecipes"),
+  },
+  {
+    path: "/own/:recipeId",
+    name: "ownrec",
+    component: () => import("./pages/OwnRecipeView"),
+  },
+  {
     path: "*",
     name: "notFound",
     component: NotFound,

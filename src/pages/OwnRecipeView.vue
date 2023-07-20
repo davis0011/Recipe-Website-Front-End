@@ -17,10 +17,10 @@
             Ingredients:
             <ul>
               <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
+                v-for="(r, index) in recipe._ingredients"
+                :key="index"
               >
-                {{ r.original }}
+                {{ r }}
               </li>
             </ul>
             <div>servings: {{ recipe.servings }}</div>
@@ -33,20 +33,23 @@
           <div class="wrapped">
             Instructions:
             <!-- {{recipe.instructions}} -->
-            <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
+            <ul>
+              <li
+                v-for="(r, index) in recipe.listinst"
+                :key="index"
+              >
+                {{ r }}
+              </li>
+            </ul>
+            <!-- <ol>
+              <li v-for="s in recipe.instructions" :key="s.number">
                 {{ s.step }}
               </li>
-            </ol>
+            </ol> -->
 
           </div>
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
@@ -63,56 +66,76 @@ export default {
       let response;
       // response = this.$route.params.response;
 
-      try {
-        console.log(this.$route.params.recipeId)
-        response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
-          "http://localhost:3000/recipes/"+this.$route.params.recipeId,
-          {
-            // params: { recipeId: this.$route.params.recipeId }
-          }
-        );
-        console.log(response.data);
-        // console.log("response.status", response.status);
-        // if (response.status !== 200) this.$router.replace("/NotFound");
-      } catch (error) {
-        console.log("error.response.status", error.response.status);
-        this.$router.replace("/NotFound");
-        return;
-      }
-      console.log(response.data)
+      try{
+                const response = await this.axios.get("http://localhost:3000/users/own",
+                );
+                const recipes = response.data.map((r)=>{
+                    return{
+                        id:r.recipe_id,
+                        title: r.title,
+                        readyInMinutes:r.readyInMinutes,
+                        image:r.image,
+                        aggregateLikes:r.popularity,
+                        viewed:r.viewed,
+                        favorite:r.favorite,
+                        glutenFree:r.glutenFree,
+                        vegan:r.vegan,
+                        vegetarian:r.vegetarian,
+                        ingredients:r.ingredients,
+                        instructions:r.instructions
+                    };
+                });
+                recipes.forEach(element => {
+                    console.log(element)
+                    if(element.id == this.$route.params.recipeId)
+                    {
+                        this.recipe = element
+                    }
+                });
+                // console.log(this.recipe)
+            }catch(error){
+                console.log(error);
+            }
+            console.log(this.recipe)
       let {
-        analyzedInstructions,
         instructions,
-        extendedIngredients,
+        ingredients,
         popularity,
         readyInMinutes,
         image,
         title,
         servings,
-        favorite
-      } = response.data;
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
+        favorite,
+        vegetarian,
+        vegan,
+        glutenFree
+      } = this.recipe;
 
+        const _ingredients = ingredients.map((step, index) => {
+        // const ingredientName = `${index + 1} `;
+        return step;
+        });
+
+        const listinst = instructions.split(',').filter(Boolean);
+        console.log(listinst)
+        console.log(_ingredients)
       let _recipe = {
+        listinst,
         instructions,
-        _instructions,
-        analyzedInstructions,
-        extendedIngredients,
+        _ingredients,
         popularity,
         readyInMinutes,
         image,
         title,
         servings,
+        vegetarian,
+        vegan,
+        glutenFree,
         favorite
       };
 
       this.recipe = _recipe;
+      console.log(this.recipe)
     } catch (error) {
       console.log(error);
     }

@@ -5,10 +5,9 @@
       tag="article"
       class="mb-2"
       >
-      <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-      class="recipe-preview"
-    >
+      <router-link 
+      :to="recipe.own ? { name: 'ownrec', params: { recipeId: recipe.id } } 
+      : { name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
       <b-card-img-lazy :src="recipe.image" alt="Image" class="custom-card-img" top></b-card-img-lazy>
       <b-card-title :class="{ 'purple-text': recipe.viewed }">{{recipe.title}}</b-card-title>
       </router-link>
@@ -97,6 +96,8 @@ export default {
   width: 10%;
   /* height: 5vh; */
   float: right;
+  cursor: pointer;
+
 }
 .recipe-preview .recipe-body .recipe-image {
   margin-left: auto;

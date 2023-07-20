@@ -10,9 +10,11 @@
             <span v-if="$root.store.username">
               <b-nav-item-dropdown text="Lang" right>
                 <b-dropdown-item :to="{ name: 'favorites' }" >Favorites</b-dropdown-item>
-                <b-dropdown-item @click="showModal">Create Recipe</b-dropdown-item>
+                <b-dropdown-item :to="{ name: 'own' }" >own</b-dropdown-item>
+                <!-- <b-dropdown-item @click="showModal">Create Recipe</b-dropdown-item> -->
               </b-nav-item-dropdown>
             </span>
+            <b-nav-item @click="showModal">Create Recipe</b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto" right>
             <span v-if="!$root.store.username" >

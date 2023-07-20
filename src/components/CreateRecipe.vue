@@ -16,6 +16,14 @@
                 required
             ></b-form-input>
             </b-form-group>
+            <b-form-group label="image" label-for="image-input" invalid-feedback="image is required">
+            <b-form-input
+                id="image-input"
+                :state=isInputEmpty(image)
+                v-model="image"
+                required
+            ></b-form-input>
+            </b-form-group>
             <b-form-group label="Time To Make:" label-for="readyInMinutes" invalid-feedback="time is required">
             <b-form-input
                 type="number"
@@ -42,12 +50,14 @@
             <b-form-textarea
                 id="ingredients"
                 placeholder="Ingredients"
+                v-model="ingredients"
                 ref="ingredients"
                 rows="3"
             ></b-form-textarea>
             <b-form-textarea
                 id="instructions"
                 placeholder="Instructions"
+                v-model="instructions"
                 ref="instructions"
                 rows="3"
             ></b-form-textarea>
@@ -63,13 +73,16 @@ export default {
     data() {
         return {
             title:null,
+            image:null,
             readyInMinutes:null,
             vegan:false,
             vegetarian:false,
             glutenFree:false,
             servings:null,
-            ingredients:[],
-            instructions:[]
+            ingredients:null,
+            instructions:null,
+            listing:[],
+            listinst:[]
 
         };
     },
@@ -118,13 +131,16 @@ export default {
       },
       resetModal() {
         this.title=null
+        this.image=null
         this.readyInMinutes=null
         this.vegan = false
         this.vegetarian = false
         this.servings = null
         this.glutenFree = false
-        this.ingredients =[]
-        this.instructions = []
+        this.ingredients =null
+        this.instructions = null
+        this.listing=[]
+        this.listinst=[]
       },
       handleOk(bvModalEvent) {
         // Prevent modal from closing
@@ -141,21 +157,23 @@ export default {
           return
         }
         // Push the name to submitted names
-        this.ingredients = this.$refs.ingredients.value.split('\n');
-        this.instructions = this.$refs.instructions.value.split('\n');
+        this.listing = this.ingredients.split('\n').filter(Boolean);
+        this.listinst = this.instructions.split('\n').filter(Boolean);
+        console.log(this.listing)
+        console.log(this.listinst)
         try {
         
         const response = await this.axios.post(
           "http://localhost:3000/users/createRecipe",
           {
             title: this.title,
-            image: "",
+            image: this.image,
             readyInMinutes: this.readyInMinutes,
             vegetarian: this.vegetarian,
             vegan: this.vegan,
             glutenFree: this.glutenFree,
-            ingredients: this.ingredients,
-            instructions: this.instructions,
+            ingredients: this.listing,
+            instructions: this.listinst,
             servings: this.servings,
             description: ""
           }
