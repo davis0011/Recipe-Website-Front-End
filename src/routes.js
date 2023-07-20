@@ -44,6 +44,11 @@ const routes = [
     component: () => import("./pages/OwnRecipeView"),
   },
   {
+    path: "/About",
+    name: "about",
+    component: () => import("./pages/About"),
+  },
+  {
     path: "*",
     name: "notFound",
     component: NotFound,

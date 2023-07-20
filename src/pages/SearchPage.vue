@@ -23,11 +23,11 @@
         class="ml-5 w-75"
         @click="handleSubmit"
         >Search</b-button>
-    <div class="sort-buttons" v-if="this.res">
+    <div class="sort-buttons" v-if="this.res && this.recipes.length != 0">
       <span @click="sortBy('popularity')">Sort by Popularity</span>
       <span @click="sortBy('time')">Sort by Time</span>
     </div>
-    <div class="recipe-grid" v-if="this.res">
+    <div class="recipe-grid" v-if="this.res && this.recipes.length != 0">
     <RecipePreview
       v-for="r in recipes"
       :recipe="{
@@ -45,6 +45,9 @@
       }"
       :key="r.id"
     ></RecipePreview>
+  </div>
+  <div v-else>
+    No result found :(
   </div>
   </div>
 </template>
@@ -156,7 +159,7 @@ export default {
         
         this.res = true
         console.log(!this.$root.store.username)
-        if(this.$root.store.username){
+        if(this.$root.store.username && this.recipes.length != 0){
           this.$root.store.lastsearch = this.recipes;
         }
         try{}

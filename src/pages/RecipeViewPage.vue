@@ -9,8 +9,11 @@
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
-              <img v-if="recipe.favorite" class="heart-icon" src="https://icon-library.com/images/small-heart-icon/small-heart-icon-0.jpg">
-            <img v-else class="heart-icon-hollow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/497px-Heart_icon_red_hollow.svg.png">
+              <div class="recipe-favorite" v-if="$root.store.username">
+            <span class="likes">Popularity: {{ recipe.aggregateLikes }}</span>
+            <img v-if="this.heart" class="heart-icon" src="https://icon-library.com/images/small-heart-icon/small-heart-icon-0.jpg">
+            <img v-else class="heart-icon-hollow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/497px-Heart_icon_red_hollow.svg.png" @click="makeFavorite()">
+            </div>
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.popularity }} likes</div>
             </div>
@@ -57,6 +60,24 @@ export default {
     return {
       recipe: null
     };
+  },
+  methods:{
+    async makeFavorite() {
+          console.log(this.recipe.id)
+          try {
+            const response = await this.axios.post("http://localhost:3000/users/favorites",
+
+              {
+                recipeId:this.recipe.id
+              }
+            );
+            this.recipe.favorite = true
+            this.heart = true
+            console.log(response);
+          } catch (err) {
+            console.log(err.response);
+          }
+        },
   },
   async created() {
     try {
@@ -136,14 +157,13 @@ export default {
 .heart-icon{
   width: 30%;
   /* height: 5vh; */
-  /* float: right; */
+  float: right;
 }
 .heart-icon-hollow{
   width: 10%;
   /* height: 5vh; */
-  /* float: right; */
-}
-/* .recipe-header{
+  float: right;
+  cursor: pointer;
 
-} */
+}
 </style>

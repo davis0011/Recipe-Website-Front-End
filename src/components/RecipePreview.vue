@@ -2,6 +2,8 @@
   <div class="column">
 
       <b-card
+      bg-variant="defult"
+      border-variant="light"
       tag="article"
       class="mb-2"
       >
@@ -12,7 +14,7 @@
       <b-card-title :class="{ 'purple-text': recipe.viewed }">{{recipe.title}}</b-card-title>
       </router-link>
       <div class="recipe-info">
-          <div class="recipe-favorite" v-if="$root.store.username">
+          <div class="recipe-favorite" v-if="$root.store.username && !recipe.own">
             <span class="likes">Popularity: {{ recipe.aggregateLikes }}</span>
             <img v-if="this.heart" class="heart-icon" src="https://icon-library.com/images/small-heart-icon/small-heart-icon-0.jpg">
             <img v-else class="heart-icon-hollow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/497px-Heart_icon_red_hollow.svg.png" @click="makeFavorite()">
@@ -35,7 +37,10 @@
 export default {
   name:"RecipePriview",
   mounted() {
-    this.heart = this.recipe.favorite
+    this.heart = this.recipe.favorite;
+    // this.axios.get(this.recipe.image).then((i) => {
+    //   this.image_load = true;
+    // });
   },
   data() {
     return {
@@ -183,7 +188,6 @@ export default {
   flex: 1;
   margin-right: 20px;
 }
-
 .column:last-child {
   margin-right: 0;
 }

@@ -7,7 +7,7 @@
         @hidden="$emit('close')"
         @ok="handleSubmit"
         >
-        <form ref="form" @submit.stop.prevent="handleSubmit">
+        <form ref="form" @submit.prevent="handleSubmit">
             <b-form-group label="title" label-for="name-input" invalid-feedback="title is required">
             <b-form-input
                 id="title-input"
@@ -47,6 +47,7 @@
                 required
             ></b-form-input>
             </b-form-group>
+            Ingredients
             <b-form-textarea
                 id="ingredients"
                 placeholder="Ingredients"
@@ -54,6 +55,7 @@
                 ref="ingredients"
                 rows="3"
             ></b-form-textarea>
+            Instructions
             <b-form-textarea
                 id="instructions"
                 placeholder="Instructions"

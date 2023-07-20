@@ -15,6 +15,7 @@
               </b-nav-item-dropdown>
             </span>
             <b-nav-item @click="showModal">Create Recipe</b-nav-item>
+            <b-nav-item :to="{ name: 'about' }" >About</b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto" right>
             <span v-if="!$root.store.username" >
