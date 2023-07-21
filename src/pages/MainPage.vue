@@ -4,8 +4,8 @@
     <RandomRecipes></RandomRecipes>
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
     <!-- {{ !$root.store.username }} -->
-    <span v-else>
-      last viewed recipes:
+    <span v-else >
+      <div class="last">last viewed recipes:</div>
       
       <LastViewed></LastViewed>
     </span>
@@ -37,5 +37,8 @@ export default {
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
+}
+.last{
+  font-size: 30px;
 }
 </style>

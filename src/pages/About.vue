@@ -1,5 +1,6 @@
 <template>
       <div>
+        <b-card class="about">
   <title>About David and Noam - Coding Aptitude</title>
   <h1>About David and Noam</h1>
   <p>Welcome to the coding world of David and Noam, two talented Information System Engineering students with an insatiable passion for innovation and technology.</p>
@@ -18,6 +19,7 @@
   <p>Noam's figure website: <a href="link-to-noam-figure-website">Link</a></p>
 
   <p>Whether it's crafting intuitive user interfaces, developing efficient algorithms, or unraveling complex programming problems, David and Noam are always up for a coding challenge. Follow their journey as they continue to leave their mark on the digital landscape, one brilliant project at a time.</p>
+</b-card>
 </div>
 </template>
 
@@ -48,7 +50,9 @@ div {
       margin: 20px;
       padding: 0;
     }
-
+.about{
+    opacity: 0.9;
+}
     h1 {
       color: #336699;
     }

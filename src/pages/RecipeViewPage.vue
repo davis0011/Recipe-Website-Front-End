@@ -5,14 +5,13 @@
         <h1>{{ recipe.title }}</h1>
         <img :src="recipe.image" class="center" />
       </div>
-      <div class="recipe-body">
+      <b-card class="recipe-body">
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
               <div class="recipe-favorite" v-if="$root.store.username">
-            <span class="likes">Popularity: {{ recipe.aggregateLikes }}</span>
-            <img v-if="this.heart" class="heart-icon" src="https://icon-library.com/images/small-heart-icon/small-heart-icon-0.jpg">
-            <img v-else class="heart-icon-hollow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/497px-Heart_icon_red_hollow.svg.png" @click="makeFavorite()">
+            <img v-if="this.heart" class="heart-icon" :src="require('../assets/h1.png')">
+            <img v-else class="heart-icon-hollow" :src="require('../assets/h2.png')" @click="makeFavorite()">
             </div>
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.popularity }} likes</div>
@@ -44,12 +43,7 @@
 
           </div>
         </div>
-      </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
+      </b-card>
     </div>
   </div>
 </template>
@@ -58,17 +52,18 @@
 export default {
   data() {
     return {
-      recipe: null
+      recipe: null,
+      heart:false
     };
   },
   methods:{
     async makeFavorite() {
-          console.log(this.recipe.id)
+          console.log(this.recipe)
           try {
             const response = await this.axios.post("http://localhost:3000/users/favorites",
 
               {
-                recipeId:this.recipe.id
+                recipeId:this.$route.params.recipeId
               }
             );
             this.recipe.favorite = true
@@ -134,6 +129,7 @@ export default {
       };
 
       this.recipe = _recipe;
+      this.heart = this.recipe.favorite;
     } catch (error) {
       console.log(error);
     }
@@ -147,7 +143,9 @@ export default {
 }
 .wrapped {
   width: 50%;
+  margin-right: 20px;
 }
+
 .center {
   display: block;
   margin-left: auto;
@@ -155,7 +153,7 @@ export default {
   width: 50%;
 }
 .heart-icon{
-  width: 30%;
+  width: 10%;
   /* height: 5vh; */
   float: right;
 }
@@ -165,5 +163,8 @@ export default {
   float: right;
   cursor: pointer;
 
+}
+.recipe-body{
+  opacity: 0.8;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-
+    <b-card-group deck>
       <b-card
       bg-variant="defult"
       border-variant="light"
@@ -16,8 +16,8 @@
       <div class="recipe-info">
           <div class="recipe-favorite" v-if="$root.store.username && !recipe.own">
             <span class="likes">Popularity: {{ recipe.aggregateLikes }}</span>
-            <img v-if="this.heart" class="heart-icon" src="https://icon-library.com/images/small-heart-icon/small-heart-icon-0.jpg">
-            <img v-else class="heart-icon-hollow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/497px-Heart_icon_red_hollow.svg.png" @click="makeFavorite()">
+            <img v-if="this.heart" class="heart-icon" :src="require('@/assets/h1.png')">
+            <img v-else class="heart-icon-hollow" :src="require('@/assets/h2.png')" @click="makeFavorite()">
 
           </div>
           <div class="recipe-icons">
@@ -30,10 +30,13 @@
             </span>
         </div>
       </b-card>
+    </b-card-group>
   </div>
 </template>
 
 <script>
+import h1 from '../assets/h1.png';
+import h2 from '../assets/h2.png';
 export default {
   name:"RecipePriview",
   mounted() {
@@ -77,13 +80,13 @@ export default {
 </script>
 
 <style scoped>
-.recipe-preview {
+/* .recipe-preview {
   display: inline-block;
   width: 90%;
   height: 100%;
   position: relative;
   margin: 10px 10px;
-}
+} */
 .recipe-preview > .recipe-body {
   width: 100%;
   /* height: 200px; */
@@ -91,9 +94,10 @@ export default {
 }
 .veg{
   float: center;
+  color: rgb(51, 179, 0);
 }
 .heart-icon{
-  width: 30%;
+  width: 10%;
   /* height: 5vh; */
   float: right;
 }
@@ -166,7 +170,7 @@ export default {
 }
 .custom-card-img {
   object-fit: cover;
-  height: 200px; /* Set the desired height for the image */
+  height: 200px;
 }
 .recipe-preview .recipe-footer ul.recipe-overview li {
   -webkit-box-flex: 1;

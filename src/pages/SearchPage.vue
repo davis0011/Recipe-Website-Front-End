@@ -16,18 +16,23 @@
 
     <label for="range-2"><div class="mt-2">Limit: {{ value }}</div></label>
     <b-form-input id="range-2" v-model="value" type="range" min="5" max="15" step="5" style="width: 30%;padding-left:20px;"></b-form-input>
-    <b-button
+    <div class="search-button-container">
+      <b-button pill
         type="submit"
         variant="primary"
-        style="width:250px;"
+        style="width: 250px;"
         class="ml-5 w-75"
+        size="lg"
         @click="handleSubmit"
-        >Search</b-button>
-    <div class="sort-buttons" v-if="this.res && this.recipes.length != 0">
+      >
+        Search
+      </b-button>
+    </div>
+    <div class="sort-buttons" v-if="this.res">
       <span @click="sortBy('popularity')">Sort by Popularity</span>
       <span @click="sortBy('time')">Sort by Time</span>
     </div>
-    <div class="recipe-grid" v-if="this.res && this.recipes.length != 0">
+    <div class="recipe-grid" v-if="this.res">
     <RecipePreview
       v-for="r in recipes"
       :recipe="{
@@ -91,10 +96,14 @@ export default {
     
   },
   created(){
-    console.log(this.$root.store.recipes)
+    const recipes = []
     if(this.$root.store.lastsearch !== []){
       this.recipes = this.$root.store.lastsearch
       this.res = true;
+    }
+    else{
+      this.recipes =[];
+      this.res = false;
     }
   },
 
@@ -165,7 +174,6 @@ export default {
         try{}
        catch (err) {
         console.log(err.response);
-        // this.form.submitError = err.response.data.message;
       }
       }
   },
@@ -177,8 +185,8 @@ export default {
 .recipe-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px; /* Add any gap between the cards */
-  margin-top: 20px; /* Adjust as needed */
+  gap: 10px; 
+  margin-top: 20px; 
 }
 .sort-buttons {
   
@@ -187,11 +195,15 @@ export default {
   margin-bottom: 20px;
   margin-top: 20px;
 }
-
+.search-button-container {
+  display: flex;
+  justify-content: center;
+}
 .sort-buttons span {
   margin: 0 10px;
   cursor: pointer;
   text-decoration: underline;
   color: blue;
 }
+
 </style>

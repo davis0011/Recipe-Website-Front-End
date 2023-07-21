@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+        <div :class="dynamicNum">
         <RecipePreview
         v-for="r in recipes"
         :recipe="{
@@ -19,7 +19,7 @@
         
         >
         </RecipePreview>
-    </div>
+        </div>
 </template>
 
 <script>
@@ -31,7 +31,9 @@ export default {
     },
     data(){
         return{
-           recipes: [],
+            recipes: [],
+            dynamicNum: 'row',
+
         }
     },
     mounted(){
@@ -58,6 +60,12 @@ export default {
                 });
                 this.recipes = [];
                 this.recipes.push(...recipes);
+                if(this.recipes.length != 3){
+                    this.dynamicNum = "recipe-grid"
+                }
+                else{
+                    this.dynamicNum = "row"
+                }
             }catch(error){
                 console.log(error);
             }
@@ -68,4 +76,10 @@ export default {
 
 <style lang="scss" scoped>
 
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
 </style>

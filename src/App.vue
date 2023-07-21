@@ -5,13 +5,13 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item :to="{ name: 'main' }">Vue Recipes</b-nav-item>
+            <b-nav-item :to="{ name: 'main' }">Main Page Recipes</b-nav-item>
             <b-nav-item :to="{ name: 'search' }" >Search</b-nav-item>
             <span v-if="$root.store.username">
-              <b-nav-item-dropdown text="Lang" right>
+              <b-nav-item-dropdown text="My Cookbook" right>
                 <b-dropdown-item :to="{ name: 'favorites' }" >Favorites</b-dropdown-item>
                 <b-dropdown-item :to="{ name: 'own' }" >own</b-dropdown-item>
-                <!-- <b-dropdown-item @click="showModal">Create Recipe</b-dropdown-item> -->
+                <b-dropdown-item :to="{ name:'family' }">family</b-dropdown-item>
               </b-nav-item-dropdown>
             </span>
             <b-nav-item @click="showModal">Create Recipe</b-nav-item>
@@ -78,6 +78,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #000000;
   min-height: 100vh;
+  background-image: url('./assets/bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow-x: hidden;
+
 }
 
 .navbar-dark .navbar-nav .nav-link:hover,

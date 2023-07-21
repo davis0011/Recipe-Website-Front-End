@@ -5,14 +5,11 @@
         <h1>{{ recipe.title }}</h1>
         <img :src="recipe.image" class="center" />
       </div>
-      <div class="recipe-body">
+      <b-card class="recipe-body">
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
-              <img v-if="recipe.favorite" class="heart-icon" src="https://icon-library.com/images/small-heart-icon/small-heart-icon-0.jpg">
-            <img v-else class="heart-icon-hollow" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/497px-Heart_icon_red_hollow.svg.png">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.popularity }} likes</div>
             </div>
             Ingredients:
             <ul>
@@ -25,6 +22,7 @@
             </ul>
             <div>servings: {{ recipe.servings }}</div>
             <i class="gluten">{{ recipe.glutenFree ? 'Gluten-Free' : 'Has Gluten' }}</i>
+            <br>
             <span align="center" class="veg">
             <i v-if="recipe.vegan">vegan</i>
             <i v-else-if="recipe.vegetarian">vegetarian</i>
@@ -41,15 +39,10 @@
                 {{ r }}
               </li>
             </ul>
-            <!-- <ol>
-              <li v-for="s in recipe.instructions" :key="s.number">
-                {{ s.step }}
-              </li>
-            </ol> -->
 
           </div>
         </div>
-      </div>
+      </b-card>
     </div>
   </div>
 </template>
@@ -63,8 +56,6 @@ export default {
   },
   async created() {
     try {
-      let response;
-      // response = this.$route.params.response;
 
       try{
                 const response = await this.axios.get("http://localhost:3000/users/own",
@@ -77,6 +68,7 @@ export default {
                         image:r.image,
                         aggregateLikes:r.popularity,
                         viewed:r.viewed,
+                        servings:r.servings,
                         favorite:r.favorite,
                         glutenFree:r.glutenFree,
                         vegan:r.vegan,
@@ -149,6 +141,9 @@ export default {
 }
 .wrapped {
   width: 50%;
+}
+.recipe-body{
+  opacity: 0.8;
 }
 .center {
   display: block;

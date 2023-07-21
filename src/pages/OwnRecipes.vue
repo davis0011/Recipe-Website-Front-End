@@ -72,11 +72,12 @@ export default {
 
 <style lang="scss" scoped>
 #recipes {
-    height: 50%;
+        height: 50%;
+    justify-content: center;
 }
 .recipe-container {
-  width: 30%;
+  width: 20%;
   height: auto; 
-
+  margin: 20px;
 }
 </style>

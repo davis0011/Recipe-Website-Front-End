@@ -5,7 +5,7 @@
         title="Submit Your Name"
         @show="resetModal"
         @hidden="$emit('close')"
-        @ok="handleSubmit"
+        @ok="handleOk"
         >
         <form ref="form" @submit.prevent="handleSubmit">
             <b-form-group label="title" label-for="name-input" invalid-feedback="title is required">
@@ -65,6 +65,7 @@
             ></b-form-textarea>
             
         </form>
+        <div id="success" v-if="this.show">Recipe created</div>
         </b-modal>
 </template>
 
@@ -84,7 +85,8 @@ export default {
             ingredients:null,
             instructions:null,
             listing:[],
-            listinst:[]
+            listinst:[],
+            show:false
 
         };
     },
@@ -183,11 +185,19 @@ export default {
         console.log(response);
       } catch (err) {
         console.log(err.response);
+        window.alert("This recipe name already exists, please try the name more specific");
+        this.title=null
+        return;
         // this.form.submitError = err.response.data.message;
       }
         // Hide the modal manually
         this.$nextTick(() => {
-          this.$bvModal.hide('modal')
+          this.show=true;
+          setTimeout(() => {
+            this.show=false;
+            this.$bvModal.hide('modal');
+          }, 1000);
+
         })
       }
     },

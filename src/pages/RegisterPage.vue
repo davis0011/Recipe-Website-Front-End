@@ -122,15 +122,15 @@
       >
         <b-form-input
           id="email"
-          type="text"
-          v-model="$v.form.confirmEmail.$model"
-          :state="validateState('confirmEmail')"
+          type="email"
+          v-model="$v.form.email.$model"
+          :state="validateState('email')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.confirmEmail.required">
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
           Email is required
         </b-form-invalid-feedback>
         <b-form-invalid-feedback
-          v-else-if="!$v.form.confirmEmail.email"
+          v-else-if="!$v.form.email.email"
         >
           please enter a valid email
         </b-form-invalid-feedback>
@@ -213,9 +213,9 @@ export default {
         required,
         sameAsPassword: sameAs("password")
       },
-      confirmEmail:{
+      email:{
         required,
-        goodMail: email
+        email
       }
 
     }
