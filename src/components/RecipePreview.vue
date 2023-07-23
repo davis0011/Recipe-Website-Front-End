@@ -123,13 +123,13 @@ export default {
 .purple-text {
   color: #551A8B;
   font-weight: bold;
-  text-decoration-color: #551A8B; /* Set the underline color to match the text color */
-  text-decoration-thickness: 2px; /* Adjust the thickness of the underline */
-  text-decoration-style: solid; /* Set the underline style to solid */
+  text-decoration-color: #551A8B;
+  text-decoration-thickness: 2px;
+  text-decoration-style: solid;
 }
 
 .purple-text:hover {
-  text-decoration-color: inherit; /* Inherit the underline color from the parent element on hover */
+  text-decoration-color: inherit;
 }
 .recipe-preview .recipe-footer {
   width: 100%;

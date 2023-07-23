@@ -163,8 +163,6 @@ export default {
         // Push the name to submitted names
         this.listing = this.ingredients.split('\n').filter(Boolean);
         this.listinst = this.instructions.split('\n').filter(Boolean);
-        console.log(this.listing)
-        console.log(this.listinst)
         try {
         
         const response = await this.axios.post(

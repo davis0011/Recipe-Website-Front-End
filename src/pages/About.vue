@@ -11,12 +11,12 @@
 
   <h3>JavaScript Game</h3>
   <p>David and Noam collaborated on an exciting and addictive JavaScript game that showcases their skills in interactive web development. Get ready to be immersed in a world of fun and challenge with this impressive creation.</p>
-  <p><a href="link-to-javascript-game">Play the game</a></p>
+  <p><a href="https://web-development-environments-2023.github.io/assignment2_209236926_315705111/">Play the game</a></p>
 
   <h3>Inspiring Figure Website</h3>
   <p>Both David and Noam believe in the power of inspiration. As a tribute to their role models, they each designed a captivating static website highlighting the life and achievements of the figure they look up to. Prepare to be inspired by the remarkable stories portrayed on these websites.</p>
-  <p>David's figure website: <a href="link-to-david-figure-website">Link</a></p>
-  <p>Noam's figure website: <a href="link-to-noam-figure-website">Link</a></p>
+  <p>David's figure website: <a href="https://web-development-environments-2023.github.io/209236926/">Link</a></p>
+  <p>Noam's figure website: <a href="https://web-development-environments-2023.github.io/315705111/">Link</a></p>
 
   <p>Whether it's crafting intuitive user interfaces, developing efficient algorithms, or unraveling complex programming problems, David and Noam are always up for a coding challenge. Follow their journey as they continue to leave their mark on the digital landscape, one brilliant project at a time.</p>
 </b-card>

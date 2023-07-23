@@ -238,8 +238,8 @@ export default {
 
           {
             username: this.form.username,
-            firstName: this.form.firstName,
-            lastName: this.form.lastName,
+            firstname: this.form.firstName,
+            lastname: this.form.lastName,
             country: this.form.country,
             password: this.form.password,
             email: this.form.email,
