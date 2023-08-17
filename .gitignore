@@ -19,5 +19,3 @@ pnpm-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
-package-lock.json
-package-lock.json
