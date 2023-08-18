@@ -61,7 +61,7 @@ export default {
     async makeFavorite() {
       console.log(this.recipe.id)
       try {
-        const response = await this.axios.post("http://localhost:3000/users/favorites",
+        const response = await this.axios.post("recipe-website-back-end.vercel.app/users/favorites",
 
           {
             recipeId:this.recipe.id

@@ -166,7 +166,7 @@ export default {
         try {
         
         const response = await this.axios.post(
-          "http://localhost:3000/users/createRecipe",
+          "recipe-website-back-end.vercel.app/users/createRecipe",
           {
             title: this.title,
             image: this.image,
