@@ -138,7 +138,7 @@ export default {
               intolerances: i
             })
         const response = await this.axios.get(
-          "recipe-website-back-end.vercel.app/recipes/searchRecipe",
+          "http://localhost:3000/recipes/searchRecipe",
           {
             headers: {
               searchText: this.text,

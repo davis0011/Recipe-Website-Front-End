@@ -60,7 +60,7 @@ export default {
     async makeFavorite() {
           console.log(this.recipe)
           try {
-            const response = await this.axios.post("recipe-website-back-end.vercel.app/users/favorites",
+            const response = await this.axios.post("http://localhost:3000/users/favorites",
 
               {
                 recipeId:this.$route.params.recipeId
@@ -83,7 +83,7 @@ export default {
         console.log(this.$route.params.recipeId)
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          "recipe-website-back-end.vercel.app/recipes/"+this.$route.params.recipeId,
+          "http://localhost:3000/recipes/"+this.$route.params.recipeId,
           {
             // params: { recipeId: this.$route.params.recipeId }
           }

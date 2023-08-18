@@ -70,7 +70,7 @@ export default {
     methods: {
         async getfamily(){
             try{
-                const response = await this.axios.get("recipe-website-back-end.vercel.app/users/family",
+                const response = await this.axios.get("http://localhost:3000/users/family",
                 );
                 const recipes = response.data.map((r)=>{
                     return{

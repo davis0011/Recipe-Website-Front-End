@@ -41,7 +41,7 @@ export default {
     methods: {
         async updateRecipes(){
             try{
-                const response = await this.axios.get("recipe-website-back-end.vercel.app/users/own",
+                const response = await this.axios.get("http://localhost:3000/users/own",
                 );
                 const recipes = response.data.map((r)=>{
                     return{
